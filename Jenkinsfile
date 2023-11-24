@@ -35,7 +35,7 @@ pipeline {
         stage('Push To DockerHub') {
             steps {
                 script {
-                    docker.withRegistry( 'https://registry.hub.docker.com ', registryCredential ) {
+                    docker.withRegistry('https://hub.docker.com/', registryCredential ) {
                         dockerImage.push()
                     }
                 }
@@ -51,12 +51,12 @@ pipeline {
                     def drun = "docker run -d --name ${JOB_NAME} -p 5000:5000 ${img}"
                     println "${drun}"
                     sshagent(['docker-test']) {
-                        sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@192.168.1.16 ${stopcontainer} "
-                        sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@192.168.1.16 ${delcontName}"
-                        sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@192.168.1.16 ${delimages}"
+                        sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@192.168.10.234 ${stopcontainer} "
+                        sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@192.168.10.234 ${delcontName}"
+                        sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@192.168.10.234 ${delimages}"
 
                     // some block
-                        sh "ssh -o StrictHostKeyChecking=no docker@192.168.1.16 ${drun}"
+                        sh "ssh -o StrictHostKeyChecking=no docker@192.168.10.234 ${drun}"
                     }
                 }
             }
