@@ -1,8 +1,7 @@
 def img
+
 pipeline {
     environment {
-        registry = "nandini773/myapp" //To push an image to Docker Hub, you must first name your local image using your Docker Hub username and the repository name that you created through Docker Hub on the web.
-        registryCredential = 'dockerhub_id'
         dockerImage = ''
     }
     agent any
@@ -16,29 +15,16 @@ pipeline {
         stage('Build Image') {
             steps {
                 script {
-                    img = registry + ":${env.BUILD_ID}"
-                    println ("${img}")
+                    img = "nandini773/myapp:${env.BUILD_ID}"
+                    println("${img}")
                     dockerImage = docker.build("${img}")
                 }
             }
         }
 
-
-
         stage('Test - Run Docker Container on Jenkins node') {
-           steps {
-
-                sh label: '', script: "docker run -d --name ${JOB_NAME} -p 5000:5000 ${img}"
-          }
-        }
-
-        stage('Push To DockerHub') {
             steps {
-                script {
-                    docker.withRegistry('https://hub.docker.com/', registryCredential ) {
-                        dockerImage.push()
-                    }
-                }
+                sh "docker run -d --name ${JOB_NAME} -p 5000:5000 ${img}"
             }
         }
 
@@ -50,18 +36,17 @@ pipeline {
                     def delimages = 'docker image prune -a --force'
                     def drun = "docker run -d --name ${JOB_NAME} -p 5000:5000 ${img}"
                     println "${drun}"
-                    sshagent(['docker-test']) {
-                        sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@192.168.10.234 ${stopcontainer} "
-                        sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@192.168.10.234 ${delcontName}"
-                        sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@192.168.10.234 ${delimages}"
 
-                    // some block
+                    sshagent(['docker-test']) {
+                        sh "ssh -o StrictHostKeyChecking=no docker@192.168.10.234 ${stopcontainer} "
+                        sh "ssh -o StrictHostKeyChecking=no docker@192.168.10.234 ${delcontName}"
+                        sh "ssh -o StrictHostKeyChecking=no docker@192.168.10.234 ${delimages}"
+
+                        // some block
                         sh "ssh -o StrictHostKeyChecking=no docker@192.168.10.234 ${drun}"
                     }
                 }
             }
         }
-
-
     }
 }
