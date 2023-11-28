@@ -23,14 +23,14 @@ pipeline {
                 stage('Test - Run Docker Container on Jenkins node') {
            steps {
 
-                sh label: '', script: "docker run -d --name mYAPpp -p 5999:5000 ${img}"
+                sh label: '', script: "docker run -d --name mmYAPpp -p 5909:5000 ${img}"
           }
         }
 
                 stage('Push To DockerHub') {
             steps {
                 script {
-                    dockerwithRegistry('https://hub.docker.com', registryCredential ) {
+                    docker.withRegistry('https://hub.docker.com', registryCredential ) {
                         dockerImage.push()
                     }
                 }
