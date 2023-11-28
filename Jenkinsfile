@@ -29,7 +29,7 @@ pipeline {
                 stage('Push To DockerHub') {
             steps {
                 script {
-                    docker.withRegistry('https://hub.docker.com/', registryCredential ) {
+                    docker.withRegistry('https://hub.docker.com/repository/docker/nandini773/myapp', registryCredential ) {
                         dockerImage.push()
                     }
                 }
