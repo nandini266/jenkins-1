@@ -2,6 +2,7 @@ def img
 pipeline {
     environment {
         dockerImage = ''
+        registry = 'nandini773/myapp'
         
     }
     agent any
@@ -23,14 +24,14 @@ pipeline {
                 stage('Test - Run Docker Container on Jenkins node') {
            steps {
 
-                sh label: '', script: "docker run -d --name mmYAPppp -p 5979:5000 ${img}"
+                sh label: '', script: "docker run -d --name mmYAPoppp -p 5079:5000 ${img}"
           }
         }
 
                 stage('Push To DockerHub') {
             steps {
                 script {
-                    docker.withRegistry(url : 'https://hub.docker.com/repository/docker/nandini773/myapp', registryCredential : 'dockerhub' ) {
+                    docker.withRegistry(url : 'https://hub.docker.com/repository/docker/nandini773/myapp', registryCredential : 'dockerhub_id' ) {
                         dockerImage.push()
                     }
                 }
