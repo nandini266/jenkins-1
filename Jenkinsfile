@@ -10,12 +10,12 @@ pipeline {
                 git branch: 'main' , url: 'https://github.com/nandini-211019/jenkins.git'
             }
         }
-        stage('build') {
+         stage('build') {
             steps {
                 script {
                     img = 'nandini773/myapp'
-                    println({img})
-                    dockerImage = docker.build({img})
+                    println("${img}")  // Use double quotes for string interpolation
+                    dockerImage = docker.build(img)  // Remove curly braces around 'img'
                 }
             }
         }
