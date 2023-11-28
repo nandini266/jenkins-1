@@ -2,7 +2,7 @@ def img
 pipeline {
     environment {
         dockerImage = ''
-        registryCredential = 'dockerhub'
+        
     }
     agent any
     stages {
@@ -30,7 +30,7 @@ pipeline {
                 stage('Push To DockerHub') {
             steps {
                 script {
-                    docker.withRegistry('https://hub.docker.com', registryCredential ) {
+                    docker.withRegistry(url : 'https://hub.docker.com/repository/docker/nandini773/myapp', registryCredential : 'dockerhub' ) {
                         dockerImage.push()
                     }
                 }
