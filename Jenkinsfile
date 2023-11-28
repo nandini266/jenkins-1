@@ -25,5 +25,16 @@ pipeline {
                 sh label: '', script: "docker run -d --name ${JOB_NAME} -p 5000:5000 ${img}"
           }
         }
+
+                stage('Push To DockerHub') {
+            steps {
+                script {
+                    docker.withRegistry('https://hub.docker.com/', registryCredential ) {
+                        dockerImage.push()
+                    }
+                }
+            }
+        }
+
     }
 }
