@@ -1,16 +1,21 @@
+def img
 pipeline {
-    agent {
-        docker {
-            image 'docker:latest'
-            args '-v /var/run/docker.sock:/var/run/docker.sock'
-        }
+    environment {
+        dockerImage = ''
     }
+    agent any
     stages {
-        stage('Build') {
+        stage('git checkout') {
+            steps {
+                git branch: 'main' , url: 'https://github.com/nandini-211019/jenkins.git'
+            }
+        }
+         stage('build') {
             steps {
                 script {
-                    // Your Docker build and other commands here
-                    sh 'docker build -t nandini773/myapp .'
+                    img = 'nandini773/myapp'
+                    println("${img}")  // Use double quotes for string interpolation
+                    dockerImage = docker.build(img)  // Remove curly braces around 'img'
                 }
             }
         }
