@@ -14,8 +14,8 @@ pipeline {
             steps {
                 script {
                     img = 'nandini773/myapp'
-                    println("${img}")  // Use double quotes for string interpolation
-                    dockerImage = docker.build(img)  // Remove curly braces around 'img'
+                    println("${img}")  // 
+                    dockerImage = docker.build(img)  //  
                 }
             }
         }
