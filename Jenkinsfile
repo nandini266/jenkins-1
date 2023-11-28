@@ -1,6 +1,7 @@
 def img
 pipeline {
     environment {
+        registryCredential = 'dckr_pat_Ni7Z5ngqCPNmXCWMU9MjUDmWOtA'
         dockerImage = ''
     }
     agent any
