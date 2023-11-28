@@ -14,8 +14,8 @@ pipeline {
             steps {
                 script {
                     img = 'nandini773/myapp'
-                    println("${img}")
-                    dockerImage = docker.build(${img})
+                    println({img})
+                    dockerImage = docker.build({img})
                 }
             }
         }
