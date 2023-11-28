@@ -22,11 +22,7 @@ pipeline {
             }
         }
 
-        stage('Test - Run Docker Container on Jenkins node') {
-            steps {
-                sh "docker run -d --name ${JOB_NAME} -p 5000:5000 ${img}"
-            }
-        }
+ 
 
         stage('Deploy to Test Server') {
             steps {
@@ -37,14 +33,7 @@ pipeline {
                     def drun = "docker run -d --name ${JOB_NAME} -p 5000:5000 ${img}"
                     println "${drun}"
 
-                    sshagent(['docker-test']) {
-                        sh "ssh -o StrictHostKeyChecking=no docker@192.168.10.234 ${stopcontainer} "
-                        sh "ssh -o StrictHostKeyChecking=no docker@192.168.10.234 ${delcontName}"
-                        sh "ssh -o StrictHostKeyChecking=no docker@192.168.10.234 ${delimages}"
-
-                        // some block
-                        sh "ssh -o StrictHostKeyChecking=no docker@192.168.10.234 ${drun}"
-                    }
+ 
                 }
             }
         }
