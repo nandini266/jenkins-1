@@ -1,7 +1,8 @@
 def img
 pipeline {
     environment {
-        dockerImage = 'dckr_pat__jUehk6ANCicQpkLct8bLnjJpk8'
+        dockerImage = ''
+        registryCredential = 'dockerhub'
     }
     agent any
     stages {
