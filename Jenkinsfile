@@ -24,7 +24,7 @@ pipeline {
                 stage('Test - Run Docker Container on Jenkins node') {
            steps {
 
-                sh label: '', script: "docker run -d --name Aaapp -p 2370:5000 ${img}"
+                sh label: '', script: "docker run -d --name Aaaapp -p 2375:5000 ${img}"
           }
         }
 
@@ -43,7 +43,7 @@ pipeline {
                     def stopcontainer = "docker stop ${JOB_NAME}"
                     def delcontName = "docker rm ${JOB_NAME}"
                     def delimages = 'docker image prune -a --force'
-                    def drun = "docker run -d --name ${JOB_NAME} -p 2370:5000 ${img}"
+                    def drun = "docker run -d --name ${JOB_NAME} -p 2375:5000 ${img}"
                     println "${drun}"
                     sshagent(['docker-test']) {
                         sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@172.17.0.1 ${stopcontainer} "
