@@ -37,9 +37,8 @@ pipeline {
                 }
             }
         }
-                stage('Deploy to Test Server') {
-            steps {
+  
  
 
-    }
+    
 }
