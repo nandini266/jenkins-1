@@ -24,7 +24,7 @@ pipeline {
                 stage('Test - Run Docker Container on Jenkins node') {
            steps {
 
-                sh label: '', script: "docker run -d --name AAaaappp -p 2576:5000 ${img}"
+                sh label: '', script: "docker run -d --name AAaaaappp -p 2578:5000 ${img}"
           }
         }
 
@@ -43,15 +43,15 @@ pipeline {
                     def stopcontainer = "docker stop ${JOB_NAME}"
                     def delcontName = "docker rm ${JOB_NAME}"
                     def delimages = 'docker image prune -a --force'
-                    def drun = "docker run -d --name ${JOB_NAME} -p 2356:5000 ${img}"
+                    def drun = "docker run -d --name ${JOB_NAME} -p 2358:5000 ${img}"
                     println "${drun}"
                     sshagent(['docker-test']) {
-                        sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@172.17.0.1 ${stopcontainer} "
-                        sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@172.17.0.1 ${delcontName}"
-                        sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@172.17.0.1 ${delimages}"
+                        sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@localhost ${stopcontainer} "
+                        sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@localhost ${delcontName}"
+                        sh returnStatus: true, script: "ssh -o StrictHostKeyChecking=no docker@localhost ${delimages}"
 
                     // some block
-                        sh "ssh -o StrictHostKeyChecking=no docker@172.17.0.1 ${drun}"
+                        sh "ssh -o StrictHostKeyChecking=no docker@localhost ${drun}"
                     }
                 }
             }
