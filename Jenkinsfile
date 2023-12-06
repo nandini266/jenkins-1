@@ -3,7 +3,7 @@ pipeline {
     environment {
         dockerImage = ''
         registry = 'nandini773/myapp'
-        registryCredential = 'dockerhub-id'
+        registryCredential = 'dockerhub_id'
     }
     agent any
     stages {
