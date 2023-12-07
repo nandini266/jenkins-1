@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('git checkout') {
             steps {
-                git branch: 'main' , url: 'git@github.com:nandini-211019/jenkins.git'
+                git branch: 'main' , url: 'https://github.com/nandini-211019/jenkins.git'
             }
         }
          stage('build') {
