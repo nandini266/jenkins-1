@@ -3,7 +3,7 @@ pipeline {
     environment {
         dockerImage = ''
         registry = 'nandini773/myapp'
-        registryCredential = 'DokcerHub'
+        registryCredential = 'DOCKERHUB'
     }
     agent any
     stages {
@@ -24,7 +24,7 @@ pipeline {
                 stage('Test - Run Docker Container on Jenkins node') {
            steps {
 
-                sh label: '', script: "docker run -d --name AP -p 7661:5000 ${img}"
+                sh label: '', script: "docker run -d --name AaP -p 7665:5000 ${img}"
           }
         }
 
