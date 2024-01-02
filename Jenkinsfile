@@ -6,7 +6,13 @@ pipeline {
         registryCredential = 'DOCKERHUB'
     }
     agent any
-    stages {
+
+    
+    triggers {
+        pollSCM('* * * * *')  // Poll every minute
+    }
+    s
+    tages {
         stage('git checkout') {
             steps {
                 git branch: 'main' , url: 'https://github.com/nandini-211019/jenkins.git'
